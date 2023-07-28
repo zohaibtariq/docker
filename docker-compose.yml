@@ -1,0 +1,97 @@
+version: "3.9"
+services:
+  mysql:
+    container_name: mysql
+    build: mysql
+    env_file: mysql/mysql.env
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+  php:
+    container_name: php
+    build: php
+    ports:
+      - "80:80"
+    volumes:
+      - ./php/laravel:/var/www/html/laravel
+      - ./php/apache2/sites-available:/etc/apache2/sites-available
+    depends_on:
+      - mysql
+      - redis
+      - mongodb
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    env_file: redis/redis.env
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-root}
+    volumes:
+      - redis_data:/data
+  mongodb:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+  node:
+      build: node
+      container_name: node
+      ports:
+        - "3000:3000"
+      volumes:
+        - ./node/api:/api
+      restart: unless-stopped
+      depends_on:
+        - mysql
+        - redis
+        - mongodb
+  react:
+    build: react
+    container_name: react
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./react/app:/app
+  angular:
+    build: angular
+    container_name: angular
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./angular/app:/app
+  vue:
+    build: vue
+    container_name: vue
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./vue/app:/app
+#  python:
+#    build: python
+#    container_name: python
+#    ports:
+#      - "81:8000"
+#    volumes:
+#      - ./python/app:/app
+#    depends_on:
+#      - mysql
+#      - redis
+#      - mongodb
+volumes:
+  mysql_data:
+  redis_data:
+  mongodb_data:
+#  node/api:
+#  react/app:
+#  angular/app:
+#  vue/app:
+#  python/app:
