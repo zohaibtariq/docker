@@ -62,4 +62,4 @@ docker exec -it CONTAINER_NAME_OR_ID bash -c "composer install ; php artisan cac
 ```
 
 ## NOTE
-### if you want to change project folder name like api or laravel make sure to make relevant changes in Dockerfile and in docker-compose.yml file as well
+#### if you want to change project folder name like api or laravel make sure to make relevant changes in Dockerfile and in docker-compose.yml file as well

@@ -14,8 +14,6 @@ cp php/laravel/.env.example php/laravel/.env
 
 docker exec -it php bash -c 'composer install ; php artisan key:generate ; php artisan route:clear ; php artisan view:clear ; php artisan cache:clear ; php artisan config:clear ; php artisan config:cache ; '
 
-docker exec -it node bash -c 'touch testfile'
-
 echo "Starting Docker..."
 docker compose up -d
 
