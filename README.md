@@ -26,7 +26,7 @@ docker ps
 ```
 ### SEE ALL CONTAINERS
 ```
-docker psa
+docker ps -a
 ```
 
 ## FOLLOWING URL CAN BE ACCESSED MENTIONED WITH THEIR CONTAINER NAMES IN ()
