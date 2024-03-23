@@ -29,18 +29,18 @@ RUN docker-php-ext-install curl \
     pdo \
     session \
     xml \
-    zip \
+#    zip \
     pdo_mysql \
     -j$(nproc) gd \
     -j$(nproc) iconv \
     soap
 RUN pecl install redis \
     mongodb \
-    xdebug \
-    zip
+#    zip \
+    xdebug
 RUN docker-php-ext-enable \
     xdebug \
-    zip \
+#    zip \
     mongodb \
     redis
 RUN apt-get clean

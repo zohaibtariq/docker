@@ -42,56 +42,7 @@ services:
     volumes:
       - mongodb_data:/data/db
     restart: unless-stopped
-  node:
-      build: node
-      container_name: node
-      ports:
-        - "3000:3000"
-      volumes:
-        - ./node/api:/api
-      restart: unless-stopped
-      depends_on:
-        - mysql
-        - redis
-        - mongodb
-  react:
-    build: react
-    container_name: react
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./react/app:/app
-  angular:
-    build: angular
-    container_name: angular
-    ports:
-      - "4200:4200"
-    volumes:
-      - ./angular/app:/app
-  vue:
-    build: vue
-    container_name: vue
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./vue/app:/app
-#  python:
-#    build: python
-#    container_name: python
-#    ports:
-#      - "81:8000"
-#    volumes:
-#      - ./python/app:/app
-#    depends_on:
-#      - mysql
-#      - redis
-#      - mongodb
 volumes:
   mysql_data:
   redis_data:
   mongodb_data:
-#  node/api:
-#  react/app:
-#  angular/app:
-#  vue/app:
-#  python/app:
